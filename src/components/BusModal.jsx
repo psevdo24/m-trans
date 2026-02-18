@@ -209,7 +209,7 @@ const BusModal = ({ bus, onClose, onSave }) => {
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                             </div>
                                         )}
-                                        <div className="bg-gray-50 rounded-xl p-4 space-y-3 border border-gray-100">
+                                        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden divide-y divide-gray-100 shadow-sm">
                                             <InfoRow label="Марка та Модель" value={formData.make_model} />
                                             <InfoRow label="Кількість місць" value={formData.seats} />
                                             <InfoRow label="VIN код" value={formData.vin} isMono />
@@ -297,7 +297,7 @@ const BusModal = ({ bus, onClose, onSave }) => {
                                         />
                                     </div>
                                 ) : (
-                                    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden divide-y divide-gray-50 shadow-sm animate-fadeIn" style={{ animationDelay: '0.1s' }}>
+                                    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden divide-y divide-gray-100 shadow-sm animate-fadeIn" style={{ animationDelay: '0.1s' }}>
                                         <DateDisplay label="Страхування авто" date={formData.vehicle_insurance_expiry} />
                                         <DateDisplay label="Страхування пасажирів" date={formData.passenger_insurance_expiry} />
                                         <DateDisplay label="Технічний огляд (ТО)" date={formData.maintenance_expiry} />
@@ -334,16 +334,19 @@ const BusModal = ({ bus, onClose, onSave }) => {
     );
 };
 
-const InfoRow = ({ label, value }) => (
-    <div className="flex border-b border-gray-100 pb-2 last:border-0">
-        <span className="text-gray-500 w-1/3">{label}:</span>
-        <span className="text-gray-900 font-medium">{value || '—'}</span>
+const InfoRow = ({ label, value, isMono }) => (
+    <div className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200">
+        <span className="text-gray-500 font-medium">{label}</span>
+        <span className={`text-gray-900 font-bold ${isMono ? 'font-mono tracking-wide' : ''}`}>{value || '—'}</span>
     </div>
 );
 
 const DateDisplay = ({ label, date }) => {
     if (!date) return (
-        <InfoRow label={label} value="—" />
+        <div className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200">
+            <span className="text-gray-500 font-medium">{label}</span>
+            <span className="text-gray-300 font-mono">—</span>
+        </div>
     );
 
     const dateObj = new Date(date);
@@ -351,14 +354,14 @@ const DateDisplay = ({ label, date }) => {
     const isExpired = dateObj < today;
     const isWarning = dateObj < new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days
 
-    let badgeClass = "bg-green-100 text-green-800";
-    if (isExpired) badgeClass = "bg-red-100 text-red-800";
-    else if (isWarning) badgeClass = "bg-yellow-100 text-yellow-800";
+    let badgeClass = "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20";
+    if (isExpired) badgeClass = "bg-red-50 text-red-700 ring-1 ring-red-600/20";
+    else if (isWarning) badgeClass = "bg-amber-50 text-amber-700 ring-1 ring-amber-600/20";
 
     return (
-        <div className="flex items-center justify-between border-b border-gray-100 pb-2 last:border-0">
-            <span className="text-gray-500">{label}</span>
-            <span className={`px-2 py-0.5 rounded text-sm font-medium ${badgeClass}`}>
+        <div className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200 group">
+            <span className="text-gray-600 font-medium group-hover:text-gray-900 transition-colors">{label}</span>
+            <span className={`px-3 py-1 rounded-md text-sm font-mono font-bold shadow-sm ${badgeClass}`}>
                 {date}
             </span>
         </div>
