@@ -24,7 +24,7 @@ const BusCard = ({ bus, onClick }) => {
                 </div>
             </div>
             <div className="p-5">
-                <h3 className="text-xl font-bold text-gray-800 mb-1">{bus.plate_number}</h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-1 font-mono">{bus.plate_number}</h3>
                 <p className="text-gray-600 font-medium mb-3">{bus.make_model}</p>
                 <div className="flex items-center text-gray-500 text-sm bg-gray-50 px-3 py-1.5 rounded-lg w-fit">
                     <Users size={16} className="mr-2 text-blue-500" />

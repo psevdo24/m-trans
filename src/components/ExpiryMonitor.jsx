@@ -104,7 +104,7 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
                                 {filteredData.critical.map((item, idx) => (
                                     <tr key={`${item.busId}-${item.docName}-${idx}`} className="hover:bg-red-50 transition-colors transform hover:scale-[1.01] transition-all duration-200">
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="font-medium text-gray-900">{item.plate}</div>
+                                            <div className="font-medium text-gray-900 font-mono">{item.plate}</div>
                                             <div className="text-sm text-gray-500">{item.model}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.docName}</td>
@@ -154,7 +154,7 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
                                 {filteredData.warning.map((item, idx) => (
                                     <tr key={`${item.busId}-${item.docName}-${idx}`} className="hover:bg-yellow-50 transition-colors transform hover:scale-[1.01] transition-all duration-200">
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="font-medium text-gray-900">{item.plate}</div>
+                                            <div className="font-medium text-gray-900 font-mono">{item.plate}</div>
                                             <div className="text-sm text-gray-500">{item.model}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.docName}</td>
@@ -204,7 +204,7 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
                                 {filteredData.good.map((item, idx) => (
                                     <tr key={`${item.busId}-${item.docName}-${idx}`} className="hover:bg-green-50 transition-colors transform hover:scale-[1.01] transition-all duration-200">
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="font-medium text-gray-900">{item.plate}</div>
+                                            <div className="font-medium text-gray-900 font-mono">{item.plate}</div>
                                             <div className="text-sm text-gray-500">{item.model}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.docName}</td>

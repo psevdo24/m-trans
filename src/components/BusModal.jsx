@@ -82,7 +82,7 @@ const BusModal = ({ bus, onClose, onSave }) => {
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-scaleIn transform transition-all duration-300">
                 <div className="flex justify-between items-center p-6 border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-sm z-10 rounded-t-2xl">
                     <div className="flex items-center gap-4">
-                        <h2 className="text-2xl font-bold text-gray-800 tracking-tight">
+                        <h2 className="text-2xl font-bold text-gray-800 tracking-tight font-mono">
                             {isEditing ? 'Редагування автобуса' : bus.plate_number}
                         </h2>
                         {!isEditing && (
@@ -133,7 +133,7 @@ const BusModal = ({ bus, onClose, onSave }) => {
                                                 name="plate_number"
                                                 value={formData.plate_number}
                                                 onChange={handleChange}
-                                                className="block w-full rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 p-2.5 text-sm font-semibold"
+                                                className="block w-full rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 p-2.5 text-sm font-semibold font-mono"
                                                 required
                                             />
                                         </div>
