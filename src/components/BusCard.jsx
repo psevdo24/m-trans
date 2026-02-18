@@ -7,7 +7,7 @@ const BusCard = ({ bus, onClick }) => {
             className="group bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-xl transform transition-all duration-300 hover:-translate-y-1 animate-fadeIn border border-gray-100"
             onClick={() => onClick(bus)}
         >
-            <div className="h-48 w-full bg-gray-200 relative overflow-hidden">
+            <div className="aspect-[4/3] w-full bg-gray-200 relative overflow-hidden">
                 {bus.photo ? (
                     <img
                         src={bus.photo}
