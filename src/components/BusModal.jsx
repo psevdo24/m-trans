@@ -342,12 +342,7 @@ const InfoRow = ({ label, value, isMono }) => (
 );
 
 const DateDisplay = ({ label, date }) => {
-    if (!date) return (
-        <div className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200">
-            <span className="text-gray-500 font-medium">{label}</span>
-            <span className="text-gray-300 font-mono">—</span>
-        </div>
-    );
+    if (!date) return null;
 
     const dateObj = new Date(date);
     const today = new Date();
