@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { AlertTriangle, AlertCircle, CheckCircle, PenTool } from 'lucide-react';
 
-const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
+const ExpiryMonitor = ({ buses, onEditBus, searchTerm, isAdmin }) => {
     const processedData = useMemo(() => {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -97,7 +97,7 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-red-800 uppercase tracking-wider">Документ</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-red-800 uppercase tracking-wider">Дата закінчення</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-red-800 uppercase tracking-wider">Статус</th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-red-800 uppercase tracking-wider">Дія</th>
+                                    {isAdmin && <th className="px-6 py-3 text-right text-xs font-medium text-red-800 uppercase tracking-wider">Дія</th>}
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-red-100">
@@ -112,14 +112,16 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
                                         <td className="px-6 py-4 whitespace-nowrap text-red-600 font-bold">
                                             Прострочено на {Math.abs(item.days)} дн.
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button
-                                                onClick={() => onEditBus(item.bus)}
-                                                className="text-red-600 hover:text-red-900 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-md transition-colors"
-                                            >
-                                                Виправити
-                                            </button>
-                                        </td>
+                                        {isAdmin && (
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <button
+                                                    onClick={() => onEditBus(item.bus)}
+                                                    className="text-red-600 hover:text-red-900 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-md transition-colors"
+                                                >
+                                                    Виправити
+                                                </button>
+                                            </td>
+                                        )}
                                     </tr>
                                 ))}
                             </tbody>
@@ -147,7 +149,7 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-yellow-800 uppercase tracking-wider">Документ</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-yellow-800 uppercase tracking-wider">Дата закінчення</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-yellow-800 uppercase tracking-wider">Статус</th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-yellow-800 uppercase tracking-wider">Дія</th>
+                                    {isAdmin && <th className="px-6 py-3 text-right text-xs font-medium text-yellow-800 uppercase tracking-wider">Дія</th>}
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-yellow-100">
@@ -162,14 +164,16 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
                                         <td className="px-6 py-4 whitespace-nowrap text-yellow-700 font-bold">
                                             Залишилось {item.days} дн.
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button
-                                                onClick={() => onEditBus(item.bus)}
-                                                className="text-yellow-700 hover:text-yellow-900 bg-yellow-100 hover:bg-yellow-200 px-3 py-1 rounded-md transition-colors"
-                                            >
-                                                Оновити
-                                            </button>
-                                        </td>
+                                        {isAdmin && (
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <button
+                                                    onClick={() => onEditBus(item.bus)}
+                                                    className="text-yellow-700 hover:text-yellow-900 bg-yellow-100 hover:bg-yellow-200 px-3 py-1 rounded-md transition-colors"
+                                                >
+                                                    Оновити
+                                                </button>
+                                            </td>
+                                        )}
                                     </tr>
                                 ))}
                             </tbody>
@@ -197,7 +201,7 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">Документ</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">Дата закінчення</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-green-800 uppercase tracking-wider">Статус</th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-green-800 uppercase tracking-wider">Дія</th>
+                                    {isAdmin && <th className="px-6 py-3 text-right text-xs font-medium text-green-800 uppercase tracking-wider">Дія</th>}
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-green-100">
@@ -212,14 +216,16 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm }) => {
                                         <td className="px-6 py-4 whitespace-nowrap text-green-700 font-bold">
                                             Дійсний ще {item.days} дн.
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button
-                                                onClick={() => onEditBus(item.bus)}
-                                                className="text-green-700 hover:text-green-900 bg-green-100 hover:bg-green-200 px-3 py-1 rounded-md transition-colors"
-                                            >
-                                                Оновити
-                                            </button>
-                                        </td>
+                                        {isAdmin && (
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <button
+                                                    onClick={() => onEditBus(item.bus)}
+                                                    className="text-green-700 hover:text-green-900 bg-green-100 hover:bg-green-200 px-3 py-1 rounded-md transition-colors"
+                                                >
+                                                    Оновити
+                                                </button>
+                                            </td>
+                                        )}
                                     </tr>
                                 ))}
                             </tbody>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save, FileText, Map, Folder, Pencil, Trash2 } from 'lucide-react';
 
-const BusModal = ({ bus, onClose, onSave }) => {
+const BusModal = ({ bus, onClose, onSave, isAdmin }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         photo: '',
@@ -85,7 +85,7 @@ const BusModal = ({ bus, onClose, onSave }) => {
                         <h2 className="text-2xl font-bold text-gray-800 tracking-tight font-mono">
                             {isEditing ? 'Редагування автобуса' : bus.plate_number}
                         </h2>
-                        {!isEditing && (
+                        {!isEditing && isAdmin && (
                             <button
                                 onClick={toggleEdit}
                                 className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200 hover:scale-105 active:scale-95"

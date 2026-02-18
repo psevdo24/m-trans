@@ -4,7 +4,8 @@ import BusCard from './components/BusCard'
 import BusModal from './components/BusModal'
 import BusSearch from './components/BusSearch'
 import ExpiryMonitor from './components/ExpiryMonitor'
-import { PlusCircle, LayoutGrid, Clock } from 'lucide-react'
+import LoginModal from './components/LoginModal'
+import { PlusCircle, LayoutGrid, Clock, User, LogOut } from 'lucide-react'
 
 function App() {
   const [buses, setBuses] = useState([])
@@ -12,7 +13,24 @@ function App() {
   const [error, setError] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedBus, setSelectedBus] = useState(null)
+
   const [currentView, setCurrentView] = useState('fleet')
+  const [user, setUser] = useState(null)
+  const [showLoginModal, setShowLoginModal] = useState(false)
+
+  useEffect(() => {
+    // Check active session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+    })
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
 
   useEffect(() => {
     fetchBuses()
@@ -73,6 +91,10 @@ function App() {
     bus.make_model.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
       <header className="bg-white shadow-sm sticky top-0 z-20">
@@ -83,6 +105,26 @@ function App() {
               <span className="ml-3 px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">Автопарк</span>
             </div>
             <BusSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
+            <div className="flex items-center">
+              {user ? (
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-full transition-colors"
+                >
+                  <LogOut size={16} />
+                  Вийти
+                </button>
+              ) : (
+                <button
+                  onClick={() => setShowLoginModal(true)}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                >
+                  <User size={16} />
+                  Адмін вхід
+                </button>
+              )}
+            </div>
           </div>
 
           <nav className="flex space-x-4 border-b border-gray-200">
@@ -148,7 +190,7 @@ function App() {
                 )}
               </>
             ) : (
-              <ExpiryMonitor buses={buses} onEditBus={setSelectedBus} searchTerm={searchTerm} />
+              <ExpiryMonitor buses={buses} onEditBus={setSelectedBus} searchTerm={searchTerm} isAdmin={!!user} />
             )}
           </>
         )}
@@ -159,6 +201,17 @@ function App() {
           bus={selectedBus}
           onClose={() => setSelectedBus(null)}
           onSave={handleUpdateBus}
+          isAdmin={!!user}
+        />
+      )}
+
+      {showLoginModal && (
+        <LoginModal
+          onClose={() => setShowLoginModal(false)}
+          onLoginSuccess={(user) => {
+            setUser(user)
+            setShowLoginModal(false)
+          }}
         />
       )}
     </div>
