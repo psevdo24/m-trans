@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save, FileText, Map, Folder, Pencil, Trash2 } from 'lucide-react';
+import { formatDateDDMMYYYY } from '../lib/dateUtils';
 
 const BusModal = ({ bus, onClose, onSave, isAdmin }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -357,7 +358,7 @@ const DateDisplay = ({ label, date }) => {
         <div className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200 group">
             <span className="text-gray-600 font-medium group-hover:text-gray-900 transition-colors">{label}</span>
             <span className={`px-3 py-1 rounded-md text-sm font-mono font-bold shadow-sm ${badgeClass}`}>
-                {date}
+                {formatDateDDMMYYYY(date)}
             </span>
         </div>
     );

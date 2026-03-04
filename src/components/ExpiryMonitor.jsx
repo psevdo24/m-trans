@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { AlertTriangle, AlertCircle, CheckCircle, PenTool } from 'lucide-react';
+import { formatDateDDMMYYYY } from '../lib/dateUtils';
 
 const ExpiryMonitor = ({ buses, onEditBus, searchTerm, isAdmin }) => {
     const processedData = useMemo(() => {
@@ -108,7 +109,7 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm, isAdmin }) => {
                                             <div className="text-sm text-gray-500">{item.model}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.docName}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-red-600 font-medium">{item.expiryDate}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-red-600 font-medium">{formatDateDDMMYYYY(item.expiryDate)}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-red-600 font-bold">
                                             Прострочено на {Math.abs(item.days)} дн.
                                         </td>
@@ -160,7 +161,7 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm, isAdmin }) => {
                                             <div className="text-sm text-gray-500">{item.model}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.docName}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-yellow-700 font-medium">{item.expiryDate}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-yellow-700 font-medium">{formatDateDDMMYYYY(item.expiryDate)}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-yellow-700 font-bold">
                                             Залишилось {item.days} дн.
                                         </td>
@@ -212,7 +213,7 @@ const ExpiryMonitor = ({ buses, onEditBus, searchTerm, isAdmin }) => {
                                             <div className="text-sm text-gray-500">{item.model}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.docName}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-green-700 font-medium">{item.expiryDate}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-green-700 font-medium">{formatDateDDMMYYYY(item.expiryDate)}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-green-700 font-bold">
                                             Дійсний ще {item.days} дн.
                                         </td>
